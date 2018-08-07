@@ -1,0 +1,6 @@
+<form action="/bookmarks/<%= @bookmark.id %>" method="post">
+  <input type="hidden" name="_method" value="put">
+  <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
+  <input type="text" name="url" value="<%= @bookmark.url %>">
+  <button>update</button>
+</form>

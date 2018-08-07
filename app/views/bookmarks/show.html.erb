@@ -1,0 +1,9 @@
+<h1><%= @bookmark.url %></h1>
+
+<form action="/bookmarks/<%= @bookmark.id %>" method="post">
+  <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
+  <input type="hidden" name="_method" value="delete">
+  <button>delete</button>
+</form>
+
+<a href="/bookmarks/<%= @bookmark.id %>/edit">edit</a>

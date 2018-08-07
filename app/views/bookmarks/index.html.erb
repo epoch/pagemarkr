@@ -1,0 +1,12 @@
+<form action="/bookmarks" method="post">
+  <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
+  <input type="text" name="url" value="<%= @bookmark.url %>">
+  <button>create</button>
+</form>
+
+
+<% @bookmarks.each do |bookmark| %>
+
+  <p><a href="/bookmarks/<%= bookmark.id %>"><%= bookmark.url %></a></p>
+
+<% end %>
