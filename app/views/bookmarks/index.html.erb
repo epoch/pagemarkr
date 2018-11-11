@@ -7,6 +7,11 @@
   </ul>
 </nav>
 
+<form class="new-bookmark-form" action="">
+  <input type="text" class="url-input">
+  <button>add</button> <span class="spinner"></span>
+</form>
+
 <div class="bookmarks">
   <% @bookmarks.each do |bookmark| %>
 
@@ -19,3 +24,37 @@
 
   <% end %>
 </div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.js"></script>
+<script>
+  let newBookmarkForm = document.querySelector('.new-bookmark-form')
+  let urlInput = document.querySelector('.url-input')
+
+  newBookmarkForm.addEventListener('submit', event => {
+    event.preventDefault()
+
+    $.ajax({
+      url: '/api/bookmarks?url=' + urlInput.value,
+      method: 'post' 
+    }).done(function(res) {
+
+      // hide spinner
+      $('.spinner').text('')
+
+      let $bookmarkDiv = $('<div>').addClass('bookmark')
+      let $anchor = $('<a>', { 
+        href: res.url, 
+        target: '_blank',
+        text: res.title
+      })
+      let $span = $('<span>').text(res.click_count)
+      $bookmarkDiv.append( $anchor ) 
+      $bookmarkDiv.append( $span )
+      $('.bookmarks').prepend( $bookmarkDiv )
+
+    })
+
+    // show a spinner
+    $('.spinner').text('loading...')
+  })
+</script>
